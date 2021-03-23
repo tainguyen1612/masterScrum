@@ -4,7 +4,7 @@ import "./PrivateScreen.css";
 import { useState, useEffect, Component } from "react";
 import { Link } from "react-router-dom";
 import PDFViewer from 'pdf-viewer-reactjs'
-
+import alert from '../constant/alert';
 export default function ViewRerportForCor({match}) {
   const [error, setError] = useState("");
   const [report, setReport] = useState([]);
@@ -39,9 +39,12 @@ export default function ViewRerportForCor({match}) {
     e.preventDefault();
     try{
       const data = await axios.post("/homeCoor/lstFaculty/report/feedback/"+match.params.facultyId+"/"+match.params.reportId,{...report}, config);
-      console.log(data);
+      if(data) {
+        alert('FeedBack Added', 'success')
+      }
     } catch(err){
       setError("feedback fail");
+      alert('FeedBack Failed', 'error')
     }
   } 
 
@@ -69,17 +72,17 @@ export default function ViewRerportForCor({match}) {
       <form  className="register-screen__form" onSubmit={(e) => handleFeedback(e)}>
         <h3 className="register-screen__title">Feeback Report</h3>
         <div className="form-group">
-          <label htmlFor="email">Report</label>
+          <label htmlFor="email">Report: </label>
           <a onClick={e => window.open(report, "_blank")}>File Report</a>
         </div>
         
         <div className="form-group">
-          <label htmlFor="name">Feedback</label>
+          <label htmlFor="name">Feedback: </label>
           <textarea type="text"
             name="feedback"
             required
             id="feedback"
-            placeholder="Phone"
+            placeholder="FeedBack"
             value={report.feedback}
             onChange={(e)=>handle(e)}></textarea>
         </div>
