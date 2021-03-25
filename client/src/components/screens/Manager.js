@@ -104,7 +104,9 @@ function Management(props) {
 
 
   return (
-    <div className={classes.root}>
+    <div className="data">
+      <h1 className="title">Chart</h1>
+      <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
        
@@ -168,6 +170,7 @@ function Management(props) {
           }}
         />
       </main>
+    </div>
     </div>
   );
 }

@@ -7,16 +7,14 @@ const ListUser = () => {
   
   const [error, setError] = useState("");
   const [user, setUser] = useState([]);
-
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      token: localStorage.getItem("authToken"),
+    },
+  };
   useEffect(() => {
     const fetchPrivateDate = async () => {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          token: localStorage.getItem("authToken"),
-        },
-      };
-
       try {
         const {data}  = await axios.get("/homeAdmin/lstUser", config);
         setUser(data.data.result);
@@ -32,38 +30,47 @@ const ListUser = () => {
 
     fetchPrivateDate();
   }, []);
+  const deleteHandle = async (id) => {
+    try{
+      const deleteRecord = await axios.delete("/homeAdmin/lstFaculty/"+id, config);
+    }catch (error) {
+      setError("Error Delete");
+    }
 
+  }
   const display = user.map(item => 
     <tr key={item.userID}>
       <td>{item.name}</td>
       <td>{item.email}</td>
       <td>{item.phone}</td>
-      <td>{item.password}</td>
+      <td className="pass" >{item.password}</td>
       <td>{item.role}</td>
-      <td><button>Update</button></td>
-      <td><button>Delete</button></td>
-      
+      <td><button className="btn-add">Update</button></td>
+      <td><button className="btn-delete">Delete</button></td>
     </tr>  
   )
 
   return error ? (
     <span className="error-message">{error}</span>
   ) : (
-    <table className="content-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Password</th>
-          <th>Role</th>
-          <th colSpan="2">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {display}
-      </tbody>
-    </table>
+    <div className="data">
+      <h1 className="title">Account</h1>
+      <table className="content-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Password</th>
+            <th>Role</th>
+            <th colSpan="2">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {display}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

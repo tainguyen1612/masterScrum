@@ -114,26 +114,28 @@ const SubmitReport = ({match}) => {
     //   <p>{time}</p>
     //   <button onClick={e => handleUpload(pdf)}>Upload</button>
     // </div>
-    <div className="register-screen">
-      <div className="register-screen__form">
-        <h3 className="register-screen__title">Submit Report</h3>
-        <div className="form-group">
-          <label htmlFor="email">Time to upload</label>
-          <p style={{color: "red"}}>You have {time} day to submit report</p>
+    <div className="data">
+      <h1 className="title">Faculty / Submit Report</h1>
+      <div className="register-screen">
+        <div className="register-screen__form">
+          <div className="form-group">
+            <label htmlFor="email">Time to upload</label>
+            <p style={{color: "red"}}>You have {time} day to submit report</p>
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="name">File:</label>
+            <input
+              type="file"
+              name="fileName"
+              required
+              id="fileName"
+              onChange={handleChange}
+            />
+          </div>
+          
+          <button onClick={e => handleUpload(pdf)} className="btn btn-primary">Upload</button>
         </div>
-        
-        <div className="form-group">
-          <label htmlFor="name">File:</label>
-          <input
-            type="file"
-            name="fileName"
-            required
-            id="fileName"
-            onChange={handleChange}
-          />
-        </div>
-        
-        <button onClick={e => handleUpload(pdf)} className="btn btn-primary">Upload</button>
       </div>
     </div>
   );

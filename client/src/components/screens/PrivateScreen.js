@@ -3,6 +3,7 @@ import axios from "axios";
 import "./PrivateScreen.css";
 import React from 'react';
 import { Link } from "react-router-dom";
+import "../routing/Header.css";
 
 const PrivateScreen = () => {
   
@@ -43,32 +44,36 @@ const PrivateScreen = () => {
 
   const display = faculty.map((item,index) => 
     <tr key={index}>
-      <td>{item.facultyName}</td>
-      <td>{item.coordinator.name}</td>
-      <td>{item.startDay}</td>
-      <td>{item.endDay}</td>
-      <td><Link to={`/edit_faculty/${item._id}`} color="warning" className="btn btn-warning mr-1">Edit</Link></td>
-      <td><Link to={"/"} onClick={() => deleteHandle(item._id)} color="warning" className="btn btn-warning mr-1">Delete</Link></td>
+      <td data-label="Faculty">{item.facultyName}</td>
+      <td data-label="Coordinator">{item.coordinator.name}</td>
+      <td data-label="Start Day">{item.startDay}</td>
+      <td data-label="End Day">{item.endDay}</td>
+      <td><Link to={`/edit_faculty/${item._id}`} color="warning" className="btn-add btn-warning mr-1">Edit</Link></td>
+      <td><Link to={"/"} onClick={() => deleteHandle(item._id)} color="warning" className="btn-delete btn-warning mr-1">Delete</Link></td>
     </tr>  
   )
 
   return error ? (
     <span className="error-message">{error}</span>
   ) : (
-    <table className="content-table">
-      <thead>
-        <tr>
-          <th>Faculty Title</th>
-          <th>Coordinator Name</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th colSpan="2">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {display}
-      </tbody>
+    <div className="data">
+      <h1 className="title">Faculty</h1>
+      <table className="content-table">
+        <thead>
+          <tr>
+            <th>Faculty Title</th>
+            <th>Coordinator Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th colSpan="2">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {display}
+        </tbody>
     </table>
+    </div>
+
   );
 };
 

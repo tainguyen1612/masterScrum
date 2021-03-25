@@ -72,60 +72,63 @@ async function submit(e) {
 
 
   return (
-    <div className="register-screen">
-      <form onSubmit={(e)=>submit(e)} className="register-screen__form">
-        <h3 className="register-screen__title">Add Faculty</h3>
-        {error && <span className="error-message">{error}</span>}
-        <div className="form-group">
-          <label htmlFor="name">Faculty Name:</label>
-          <input
-            type="text"
-            name="facultyName"
-            required
-            id="facultyName"
-            placeholder="Enter faculty"
-            value={facultydata.facultyName}
-            onChange={(e)=>handle(e)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Coordinator:</label>
+    <div className="data">
+      <h1 className="title">Create Faculty</h1>
+      <div className="register-screen">
+        <form onSubmit={(e)=>submit(e)} className="register-screen__form">
+          {error && <span className="error-message">{error}</span>}
+          <div className="form-group">
+            <label htmlFor="name">Faculty Name:</label>
+            <input
+              type="text"
+              name="facultyName"
+              required
+              id="facultyName"
+              placeholder="Enter faculty"
+              value={facultydata.facultyName}
+              onChange={(e)=>handle(e)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Coordinator:</label>
 
-          <select name="coordinator" id="coordinator" name="coordinator" value={facultydata.coordinator} onChange={(e)=>handle(e)}>
-						<option value="">Choose a coordinator</option>  
-                        {display}
-			    </select>
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Start Day:</label>
-          <input
-            type="date"
-            name="startDay"
-            required
-            id="startDay"
-            placeholder="startDay"
-            value={facultydata.startDay}
-            onChange={(e)=>handle(e)}
-          />
-        </div>
-        <div className="form-group">
-          <label>End Day:</label>
-          <input
-            type="date"
-            name="endDay"
-            required
-            id="endDay"
-            placeholder="Enter end day"
-            value={facultydata.endDay}
-            onChange={(e)=>handle(e)}
-          />
-        </div>
+            <select name="coordinator" id="coordinator" name="coordinator" value={facultydata.coordinator} onChange={(e)=>handle(e)}>
+              <option value="">Choose a coordinator</option>  
+                          {display}
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Start Day:</label>
+            <input
+              type="date"
+              name="startDay"
+              required
+              id="startDay"
+              placeholder="startDay"
+              value={facultydata.startDay}
+              onChange={(e)=>handle(e)}
+            />
+          </div>
+          <div className="form-group">
+            <label>End Day:</label>
+            <input
+              type="date"
+              name="endDay"
+              required
+              id="endDay"
+              placeholder="Enter end day"
+              value={facultydata.endDay}
+              onChange={(e)=>handle(e)}
+            />
+          </div>
 
-        <button type="submit" className="btn btn-primary">
-          Add Faculty
-        </button>
-      </form>
+          <button type="submit" className="btn btn-primary">
+            Add Faculty
+          </button>
+        </form>
+      </div>
     </div>
+
   );
 };
 

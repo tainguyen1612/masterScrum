@@ -46,75 +46,77 @@ async function submit(e) {
   }
 
   return (
-    <div className="register-screen">
-      <form onSubmit={(e)=>submit(e)} className="register-screen__form">
-        <h3 className="register-screen__title">Add Account</h3>
-        {error && <span className="error-message">{error}</span>}
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            name="name"
-            required
-            id="name"
-            placeholder="Enter Name"
-            value={userdata.name}
-            onChange={(e)=>handle(e)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            name="email"
-            required
-            id="email"
-            placeholder="Email address"
-            value={userdata.email}
-            onChange={(e)=>handle(e)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Phone:</label>
-          <input
-            type="text"
-            name="phone"
-            required
-            id="phone"
-            placeholder="Phone"
-            value={userdata.phone}
-            onChange={(e)=>handle(e)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            name="password"
-            required
-            id="password"
-            autoComplete="true"
-            placeholder="Enter password"
-            value={userdata.password}
-            onChange={(e)=>handle(e)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="confirmpassword">Role:</label>
-          <input
-            type="text"
-            name="role"
-            required
-            id="role"
-            placeholder="Enter Role"
-            value={userdata.role}
-            onChange={(e)=>handle(e)}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Add Account
-        </button>
-      </form>
+    <div className="data">
+      <div className="register-screen">
+        <h1 className="title">Create Account</h1>
+        <form onSubmit={(e)=>submit(e)} className="register-screen__form">
+          {error && <span className="error-message">{error}</span>}
+          <div className="form-group">
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              name="name"
+              required
+              id="name"
+              placeholder="Enter Name"
+              value={userdata.name}
+              onChange={(e)=>handle(e)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              name="email"
+              required
+              id="email"
+              placeholder="Email address"
+              value={userdata.email}
+              onChange={(e)=>handle(e)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Phone:</label>
+            <input
+              type="text"
+              name="phone"
+              required
+              id="phone"
+              placeholder="Phone"
+              value={userdata.phone}
+              onChange={(e)=>handle(e)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              name="password"
+              required
+              id="password"
+              autoComplete="true"
+              placeholder="Enter password"
+              value={userdata.password}
+              onChange={(e)=>handle(e)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="confirmpassword">Role:</label>
+            <input
+              type="text"
+              name="role"
+              required
+              id="role"
+              placeholder="Enter Role"
+              value={userdata.role}
+              onChange={(e)=>handle(e)}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Add Account
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

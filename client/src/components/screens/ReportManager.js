@@ -40,27 +40,30 @@ const StudentScreen = () => {
       <td>{item.student.name}</td>
       <td>{item.point}</td>
       <td>{item.feedback}</td>
-      <td><a onClick={e => window.open(item.reportUrl, "_blank")}>Click to see report</a></td>
+      <td><a className="btn-add" onClick={e => window.open(item.reportUrl, "_blank")}>View Article</a></td>
     </tr>
   )
 
   return error ? (
     <span className="error-message">{error}</span>
   ) : (
-      <table className="content-table">
-        <thead>
-          <tr>
-            <th>Faculty </th>
-            <th>Student</th>
-            <th>Point</th>
-            <th>Feedback</th>
-            <th>View Report</th>
-          </tr>
-        </thead>
-        <tbody>
-          {display}
-        </tbody>
+      <div className="data">
+        <h1 className="title">Article</h1>
+        <table className="content-table">
+          <thead>
+            <tr>
+              <th>Faculty </th>
+              <th>Student</th>
+              <th>Point</th>
+              <th>Feedback</th>
+              <th>View Report</th>
+            </tr>
+          </thead>
+          <tbody>
+            {display}
+          </tbody>
       </table>
+      </div>
     );
 };
 

@@ -34,10 +34,14 @@ function Header(props) {
     const adminRouter = () =>{
         return(
             <>
-                <li className="hea-item"><Link className="hea-links" to="/">Faculty</Link></li>
-                <li className="hea-item"><Link className="hea-links" to="/add_faculty">Create Faculty</Link></li>
-                <li className="hea-item"><Link className="hea-links" to="/list_user">Account</Link></li>
-                <li className="hea-item"><Link className="hea-links" to="/add_user">Create Account</Link></li>
+              <a href="/"><i className="fas fa-book-open"></i><span>Faculty</span></a>
+              {/* <Link className="hea-links" to="/">Faculty</Link> */}
+              <a href="/add_faculty"><i className="fas fa-book-open"></i><span>Create Faculty</span></a>
+              {/* <Link className="hea-links" to="/add_faculty">Create Faculty</Link> */}
+              <a href="/list_user"><i className="fas fa-user"></i><span>User Account</span></a>
+              {/* <Link className="hea-links" to="/list_user">Account</Link> */}
+              <a href="/add_user"><i className="fas fa-user-plus"></i><span>Create User</span></a>
+              {/* <Link className="hea-links" to="/add_user">Create Account</Link> */}
             </>
         )
     };
@@ -45,8 +49,10 @@ function Header(props) {
     const coordinatorRouter = () =>{
         return(
             <>
-                <li className="hea-item"><Link className="hea-links" to="/">Faculty</Link></li>
-                <li className="hea-item"><Link className="hea-links" to="/coo_profile">Profile</Link></li>
+                <a href="/"><i className="fas fa-book-open"></i><span>Faculty</span></a>
+                {/* <Link className="hea-links" to="/">Faculty</Link> */}
+                <a href="/coo_profile"><i className="far fa-address-card"></i><span>Profile</span></a>
+                {/* <Link className="hea-links" to="/coo_profile">Profile</Link> */}
             </>
         )
     };
@@ -54,8 +60,10 @@ function Header(props) {
     const studentRouter = () =>{
         return(
             <>
-                <li className="hea-item"><Link className="hea-links" to="/">Faculty</Link></li>
-                <li className="hea-item"><Link className="hea-links" to="/stu_profile">Profile</Link></li>
+                <a href="/"><i className="fas fa-book-open"></i><span>Faculty</span></a>
+                {/* <Link className="hea-links" to="/">Faculty</Link> */}
+                <a href="/stu_profile"><i className="far fa-address-card"></i><span>Profile</span></a>
+                {/* <Link className="hea-links" to="/stu_profile">Profile</Link> */}
             </>
         )
     };
@@ -63,16 +71,19 @@ function Header(props) {
     const managerRouter = () =>{
         return(
             <>
-                <li><Link className="hea-links" to="/">Chart Analysis</Link></li>
-                <li><Link className="hea-links" to="/article">Article</Link></li>
+                <a href="/"><i className="fas fa-chart-line"></i><span>Chart</span></a>
+                {/* <li><Link className="hea-links" to="/">Chart Analysis</Link></li> */}
+                <a href="/article"><i className="fas fa-newspaper"></i><span>Article</span></a>
+                {/* <li><Link className="hea-links" to="/article">Article</Link></li> */}
             </>
         )
     };
 
     const guestRouter = () =>{
         return(
-            <>
-                <li><Link className="hea-links" to="/">Dashboard</Link></li>
+            <>  
+                <a href="/"><i className="fas fa-newspaper"></i><span>Article</span></a>
+                {/* <li><Link className="hea-links" to="/">Dashboard</Link></li> */}
             </>
         )
     };
@@ -82,25 +93,28 @@ function Header(props) {
     }
     
   return (
-      <nav className="header">
-        <div className="header-container">
-          <a href="" className="header-logo" >
-            GW <i class="far fa-university"></i>
-          </a>
+    <div>
+      <input type="checkbox" id="menu"></input>
+      <nav>
+        <label className="green">GreenWich</label>
+        <ul>
+            <li><a onClick={() => logoutUser() }>Logout</a></li>
+        </ul>
+        <label for="menu" className="menu-bar">    
+          <i className="fa fa-bars"></i> 
+        </label>
+      </nav> 
+      <div class="side-menu">
+        {role==="admin" && adminRouter()}
+        {role==="coordinator" && coordinatorRouter()}
+        {role=="student" && studentRouter()}
+        {role==="manager" && managerRouter()}
+        {role==="guest" && guestRouter()}
+        <a onClick={() => logoutUser()} class="Logout"><span>Logout</span></a>
+      </div>
+    </div>
 
-          <div className="menu-icon">
-            <i className="fas fa-times" />
-          </div>
 
-          <ul className="hea-menu">
-            {role==="admin" && adminRouter()}
-            {role==="coordinator" && coordinatorRouter()}
-            {role=="student" && studentRouter()}
-            {role==="manager" && managerRouter()}
-            <li className="hea-item" onClick={() => logoutUser()}><a className="hea-links">Logout</a></li>
-          </ul>
-        </div>
-      </nav>
   );
 }
 

@@ -40,8 +40,8 @@ const CoorScreen = ({match}) => {
       <td>{item.facultyName}</td>
       <td>{item.startDay}</td>
       <td>{item.endDay}</td>
-      <td><Link to={`/user_for_faculty/${item._id}`} color="warning" className="btn btn-warning mr-1">Student</Link></td>
-      <td><Link to={`/submit_for_faculty/${item._id}`} color="warning" className="btn btn-warning mr-1">Article</Link></td>
+      <td><Link to={`/user_for_faculty/${item._id}`} color="warning" className="btn-add btn-warning mr-1">Student</Link></td>
+      <td><Link to={`/submit_for_faculty/${item._id}`} color="warning" className="btn-add btn-warning mr-1">Article</Link></td>
       
     </tr>  
   )
@@ -49,19 +49,22 @@ const CoorScreen = ({match}) => {
   return error ? (
     <span className="error-message">{error}</span>
   ) : (
-    <table className="content-table">
-      <thead>
-        <tr>
-          <th>Faculty Title</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th colSpan="2">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {display}
-      </tbody>
-    </table>
+    <div className="data">
+      <h1 className="title">Faculty</h1>
+        <table className="content-table">
+          <thead>
+            <tr>
+              <th>Faculty Title</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th colSpan="2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {display}
+          </tbody>
+      </table>
+    </div>
   );
 };
 

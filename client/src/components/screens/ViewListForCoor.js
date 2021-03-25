@@ -49,27 +49,30 @@ export default function ViewRerportForCor({match}) {
       <td><i class="fas fa-file-pdf"> </i></td>
       <td>{item?.reportID.CreateAt}</td>
       <td>{item?.reportID.reportStatus}</td>
-      <td><Link to={`/faculty/report/${match.params.facultyId}/${item.reportID._id}`} color="warning" className="btn btn-warning mr-1">View</Link></td>
-      <td><Link onClick={e => post(item.reportID._id)} color="warning" className="btn btn-warning mr-1">Upload</Link></td>
+      <td><Link to={`/faculty/report/${match.params.facultyId}/${item.reportID._id}`} color="warning" className="btn-add btn-warning mr-1">View</Link></td>
+      <td><Link onClick={e => post(item.reportID._id)} color="warning" className="btn-delete btn-warning mr-1">Upload</Link></td>
     </tr>  
   )
 
   return error ? (
     <span className="error-message">{error}</span>
   ) : (
-    <table className="content-table">
-      <thead>
-        <tr>
-          <th>Name Student</th>
-          <th>Report</th>
-          <th>Day Submit</th>
-          <th>Status</th>
-          <th colSpan="2">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {display}
-      </tbody>
-    </table>
+    <div className="data">
+      <h1 className="title">Faculty / Article</h1>
+      <table className="content-table">
+        <thead>
+          <tr>
+            <th>Name Student</th>
+            <th>Report</th>
+            <th>Day Submit</th>
+            <th>Status</th>
+            <th colSpan="2">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {display}
+        </tbody>
+      </table>
+    </div>
   );
 }

@@ -50,15 +50,17 @@ const StudentScreen = () => {
       <td>{item.coordinator.name}</td>
       <td>{item.startDay}</td>
       <td>{item.endDay}</td>
-      {!item.isJoin && <td><Link to={"/"} color="warning" onClick={() => joinFaculty(item._id)} className="btn btn-warning mr-1">Join</Link></td>}
-      {item.isJoin ? <td><Link to={"/view_report/"+item._id} color="warning" className="btn btn-warning mr-1">View</Link></td> : null}
-      {item.isJoin ? <td><Link to={`/submit/${item._id}/${item.endDay}`} color="warning" className="btn btn-warning mr-1">Submit</Link></td> : null}
+      {!item.isJoin && <td><Link to={"/"} color="warning" onClick={() => joinFaculty(item._id)} className="btn-delete btn-warning mr-1">Join</Link></td>}
+      {item.isJoin ? <td><Link to={"/view_report/"+item._id} color="warning" className="btn-add btn-warning mr-1">View</Link></td> : null}
+      {item.isJoin ? <td><Link to={`/submit/${item._id}/${item.endDay}`} color="warning" className="btn-add btn-warning mr-1">Submit</Link></td> : null}
     </tr>
   )
 
   return error ? (
     <span className="error-message">{error}</span>
   ) : (
+    <div className="data">
+      <h1 className="title">Faculty</h1>
       <table className="content-table">
         <thead>
           <tr>
@@ -73,7 +75,8 @@ const StudentScreen = () => {
           {display}
         </tbody>
       </table>
-    );
+    </div>
+  );
 };
 
 export default StudentScreen;

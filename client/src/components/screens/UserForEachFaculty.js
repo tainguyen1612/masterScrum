@@ -50,18 +50,21 @@ const UserForEachFaculty = (props) => {
   return error ? (
     <span className="error-message">{error}</span>
   ) : (
-    <table className="content-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-        </tr>
-      </thead>
-      <tbody>
-        {display}
-      </tbody>
-    </table>
+    <div className="data">
+      <h1 className="title">Faculty / Student</h1>
+        <table className="content-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+            </tr>
+          </thead>
+          <tbody>
+            {display}
+          </tbody>
+      </table>
+    </div>
   );
 };
 

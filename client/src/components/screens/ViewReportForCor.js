@@ -5,6 +5,7 @@ import { useState, useEffect, Component } from "react";
 import { Link } from "react-router-dom";
 import PDFViewer from 'pdf-viewer-reactjs'
 import alert from '../constant/alert';
+import { Block } from "@material-ui/icons";
 export default function ViewRerportForCor({match}) {
   const [error, setError] = useState("");
   const [report, setReport] = useState([]);
@@ -67,28 +68,30 @@ export default function ViewRerportForCor({match}) {
   return error ? (
     <span className="error-message">{error}</span>
   ) : (
-
-    <div className="register-screen" >
-      <form  className="register-screen__form" onSubmit={(e) => handleFeedback(e)}>
-        <h3 className="register-screen__title">Feeback Report</h3>
-        <div className="form-group">
-          <label htmlFor="email">Report: </label>
-          <a onClick={e => window.open(report, "_blank")}>File Report</a>
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="name">Feedback: </label>
-          <textarea type="text"
-            name="feedback"
-            required
-            id="feedback"
-            placeholder="FeedBack"
-            value={report.feedback}
-            onChange={(e)=>handle(e)}></textarea>
-        </div>
-        
-        <button type="submit" className="btn btn-primary">Upload</button>
-      </form>
-  </div>
+    <div className="data" > 
+      <h1 className="title">Faculty / Report / Feedback</h1>
+      <div className="register-screen" >
+        <form  className="register-screen__form" onSubmit={(e) => handleFeedback(e)}>
+          <h3 className="register-screen__title">Feeback Report</h3>
+          <div className="form-group">
+            <label htmlFor="email">Report: </label>
+            <a onClick={e => window.open(report, "_blank")}>File Report</a>
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="name" className="abc">Feedback: </label>
+            <textarea type="text"
+              name="feedback"
+              required
+              id="feedback"
+              placeholder="FeedBack"
+              value={report.feedback}
+              onChange={(e)=>handle(e)}></textarea>
+          </div>
+          
+          <button type="submit" className="btn btn-primary">Send Feedback</button>
+        </form>
+      </div>
+    </div>
   );
 }

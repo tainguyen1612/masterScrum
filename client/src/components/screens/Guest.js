@@ -47,6 +47,8 @@ const StudentScreen = () => {
   return error ? (
     <span className="error-message">{error}</span>
   ) : (
+    <div className="data">
+      <h1 className="title">Artivle</h1>
       <table className="content-table">
         <thead>
           <tr>
@@ -61,7 +63,8 @@ const StudentScreen = () => {
           {display}
         </tbody>
       </table>
-    );
+    </div>
+  );
 };
 
 export default StudentScreen;
