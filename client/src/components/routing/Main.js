@@ -7,6 +7,7 @@ import UserForAdmin from "../screens/LstUser";
 import CreateUser from "../screens/AddAccountScreen";
 import CreateFaculty from "../screens/AddFaculty"
 import EditFaculty from "../screens/EditFaculty"
+import EditUser from "../screens/EditUser"
 
 import CoorScreen from "../screens/CoorScreen"
 import CoorProfile from "../screens/CoorProfile"
@@ -67,6 +68,7 @@ export default function Main() {
                 
                 <Route path="/list_user" exact component={(role==="admin") ? UserForAdmin : NotFound} />
                 <Route path="/add_user" exact component={(role==="admin") ? CreateUser : NotFound} />
+                <Route path="/edit_user/:userID" exact component={(role==="admin") ? EditUser : NotFound} />
 
                 {/* Coordinator */}
                 <Route path="/user_for_faculty/:facultyId" exact component={(role==="coordinator") ? UserForEachFaculty : NotFound} />

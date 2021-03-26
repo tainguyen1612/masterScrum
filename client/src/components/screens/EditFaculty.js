@@ -2,7 +2,9 @@ import { useState , useEffect } from "react";
 import axios from "axios";
 import "./RegisterScreen.css";
 import { Link, useHistory } from "react-router-dom";
-import moment from 'moment'
+import moment from 'moment';
+import alert from '../constant/alert';
+
 const EditFaculty = (props) => {
   const [facultydata, setFacultydata] = useState({
     facultyName: "",
@@ -51,7 +53,11 @@ async function submit(e) {
     try {
         const { data } = await axios.put("/homeAdmin/lstFaculty/"+currentUserId,{...facultydata},config);
       //localStorage.setItem("authToken", data.token);
-    
+        if(data) {
+          alert("Success Update", "success");
+        }else{
+          alert("Fail Update", "error");
+        }
       console.log(data);
     } catch (error) {
       console.log("khong nhap duoc");
@@ -72,9 +78,10 @@ async function submit(e) {
 
   console.log(moment(facultydata.startDay).format("DD-MM-YYYY"));
   return (
-    <div className="register-screen">
+    <div className="data">
+      <div className="register-screen">
+        <h1 className="title">Update Faculty</h1>
       <form onSubmit={(e)=>submit(e)} className="register-screen__form">
-        <h3 className="register-screen__title">Add Faculty</h3>
         {error && <span className="error-message">{error}</span>}
         <div className="form-group">
           <label htmlFor="name">Faculty Name:</label>
@@ -125,6 +132,7 @@ async function submit(e) {
           Add Faculty
         </button>
       </form>
+    </div>
     </div>
   );
 };

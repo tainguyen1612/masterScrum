@@ -13,8 +13,11 @@ const {validate} = require('../validators/validator')
 router.post('/homeAdmin/register',checkLogin, checkAdmin, validate.validateRegisterUser() ,UserController.register);
 router.post('/login', UserController.login);
 router.get('/checkRole', checkLogin, getLogin);
-router.post('/register', UserController.register)
-router.get('/homeAdmin/lstUser', checkLogin, checkAdmin, displayUser)
+router.post('/register', UserController.register);
+router.get('/homeAdmin/lstUser', checkLogin, checkAdmin, displayUser);
+router.patch('/homeAdmin/lstUser/:userID', checkLogin, checkAdmin, UserController.updateUser);
+router.delete('/homeAdmin/lstUser/:userID', checkLogin, checkAdmin, UserController.deleteUser);
+router.get('/homeAdmin/lstUser/:userID', checkLogin, checkAdmin, UserController.singleUser);
 
 // Admin
 router.get('/coordinator', getCordinator);

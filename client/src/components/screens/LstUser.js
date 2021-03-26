@@ -2,11 +2,13 @@ import { useState, useEffect, Component } from "react";
 import axios from "axios";
 import "./PrivateScreen.css";
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const ListUser = () => {
   
   const [error, setError] = useState("");
   const [user, setUser] = useState([]);
+
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -30,14 +32,17 @@ const ListUser = () => {
 
     fetchPrivateDate();
   }, []);
+
   const deleteHandle = async (id) => {
     try{
-      const deleteRecord = await axios.delete("/homeAdmin/lstFaculty/"+id, config);
+      const deleteRecord = await axios.delete("/homeAdmin/lstUser/"+id, config);
+      window.location.reload();
     }catch (error) {
       setError("Error Delete");
     }
 
   }
+
   const display = user.map(item => 
     <tr key={item.userID}>
       <td>{item.name}</td>
@@ -45,8 +50,8 @@ const ListUser = () => {
       <td>{item.phone}</td>
       <td className="pass" >{item.password}</td>
       <td>{item.role}</td>
-      <td><button className="btn-add">Update</button></td>
-      <td><button className="btn-delete">Delete</button></td>
+      <td><Link to={`/edit_user/${item._id}`} className="btn-add">Update</Link></td>
+      <td><button className="btn-delete" onClick={(e) => deleteHandle(item._id)}>Delete</button></td>
     </tr>  
   )
 

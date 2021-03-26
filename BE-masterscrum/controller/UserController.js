@@ -73,6 +73,34 @@ const login = async (req, res, next) => {
     }
 }
 
+const updateUser = async (req,res) => {
+    try {
+        var findUser = await User.findById(req.params.userID).exec();
+        findUser.set(req.body);
+        var result = await findUser.save();
+        res.send(result);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
+
+const deleteUser = async (req,res) => {
+    try {
+        var findUser = await User.deleteOne({ _id: req.params.userID }).exec();
+        res.send(findUser);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
+
+const singleUser = async (req,res) => {
+    try {
+        var getSingleUser = await User.findById(req.params.userID).exec();
+        res.send(getSingleUser);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
 module.exports = {
-    register, login
+    register, login, updateUser, deleteUser, singleUser
 }

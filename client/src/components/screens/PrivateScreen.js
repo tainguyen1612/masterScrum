@@ -36,6 +36,7 @@ const PrivateScreen = () => {
   const deleteHandle = async (id) => {
     try{
       const deleteRecord = await axios.delete("/homeAdmin/lstFaculty/"+id, config);
+      window.location.reload();
     }catch (error) {
       setError("Error Delete");
     }
