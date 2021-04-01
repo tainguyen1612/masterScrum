@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "../routing/Header.css";
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import Button from "@material-ui/core/Button";
 
 function Header(props) {
     const [role, setRole] = useState("");
@@ -34,7 +35,7 @@ function Header(props) {
     const adminRouter = () =>{
         return(
             <>
-              <a href="/"><i className="fas fa-book-open"></i><span>Faculty</span></a>
+              <a href="/"><i class="fas fa-graduation-cap"></i><span>Faculty</span></a>
               {/* <Link className="hea-links" to="/">Faculty</Link> */}
               <a href="/add_faculty"><i className="fas fa-book-open"></i><span>Create Faculty</span></a>
               {/* <Link className="hea-links" to="/add_faculty">Create Faculty</Link> */}
@@ -96,9 +97,19 @@ function Header(props) {
     <div>
       <input type="checkbox" id="menu"></input>
       <nav>
-        <label className="green">GreenWich</label>
+
+        <label className="green">Greenwich</label>
         <ul>
-            <li><a onClick={() => logoutUser() }>Logout</a></li>
+        <Button
+          type="submit"
+          variant="contained"
+          color="secondary"
+          onClick={() => logoutUser()}
+          disableTouchListener
+        >
+          Login
+        </Button>
+            {/* <li><a onClick={() => logoutUser() }>Logout</a></li> */}
         </ul>
         <label for="menu" className="menu-bar">    
           <i className="fa fa-bars"></i> 
@@ -110,7 +121,12 @@ function Header(props) {
         {role=="student" && studentRouter()}
         {role==="manager" && managerRouter()}
         {role==="guest" && guestRouter()}
-        <a onClick={() => logoutUser()} class="Logout"><span>Logout</span></a>
+        <a style={{
+                width: "150px",
+                borderRadius: "3px",
+                letterSpacing: "1.5px",
+                marginTop: "1rem"
+              }} onClick={() => logoutUser()} class="Logout"><span>Logout</span></a>
       </div>
     </div>
 

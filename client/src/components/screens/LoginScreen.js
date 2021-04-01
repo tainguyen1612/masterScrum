@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./LoginScreen.css";
-import alert from '../constant/alert';
+import alert from "../constant/alert";
+import Button from "@material-ui/core/Button";
+
 const LoginScreen = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
 
   useEffect(() => {
     if (localStorage.getItem("authToken")) {
@@ -25,20 +26,16 @@ const LoginScreen = ({ history }) => {
     };
 
     try {
-      const { data } = await axios.post(
-        "/login",
-        { email, password },
-        config
-      );
+      const { data } = await axios.post("/login", { email, password }, config);
       console.log(data);
-      if(data.token) {
-      localStorage.setItem("authToken", data.token);
-      history.push("/");
-      alert('successfully', 'success');
+      if (data.token) {
+        localStorage.setItem("authToken", data.token);
+        history.push("/");
+        alert("successfully", "success");
       } else {
         localStorage.removeItem("authToken");
         history.push("/login");
-        alert(data.message, 'error');
+        alert(data.message, "error");
       }
     } catch (error) {
       setError(error.data);
@@ -66,26 +63,31 @@ const LoginScreen = ({ history }) => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">
-            Password:{" "}
+          <label htmlFor="password">Password: </label>
 
-          </label>
           <input
             type="password"
             required
             id="password"
             autoComplete="true"
-            placeholder="Enter password"
+            placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             tabIndex={2}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+
+        {/* Note */}
+        <Button
+          type="submit"
+          className="btn btn-primary"
+          variant="contained"
+          color="secondary"git 
+          disableFocusListener
+          disableTouchListener
+        >
           Login
-        </button>
-
-
+        </Button>
       </form>
     </div>
   );
