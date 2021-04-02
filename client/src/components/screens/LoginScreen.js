@@ -3,12 +3,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./LoginScreen.css";
 import alert from '../constant/alert';
+import Button from "@material-ui/core/Button";
+
 const LoginScreen = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-
   useEffect(() => {
     if (localStorage.getItem("authToken")) {
       history.push("/");
@@ -25,16 +25,12 @@ const LoginScreen = ({ history }) => {
     };
 
     try {
-      const { data } = await axios.post(
-        "/login",
-        { email, password },
-        config
-      );
-      console.log(data);
+      const { data } = await axios.post("/login",{ email, password },config);
+      // console.log(data);
       if(data.token) {
-      localStorage.setItem("authToken", data.token);
-      history.push("/");
-      alert('successfully', 'success');
+        localStorage.setItem("authToken", data.token);
+        history.push("/");
+        alert('successfully', 'success');
       } else {
         localStorage.removeItem("authToken");
         history.push("/login");
@@ -81,7 +77,7 @@ const LoginScreen = ({ history }) => {
             tabIndex={2}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary" variant="contained" color="secondary"git disableFocusListener disableTouchListener type="submit" className="btn btn-primary">
           Login
         </button>
 

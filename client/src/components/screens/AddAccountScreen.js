@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./RegisterScreen.css";
+import alert from '../constant/alert';
 
 const AddAccountScreen = (prop) => {
   const [userdata, setUserdata] = useState({
@@ -28,7 +29,11 @@ async function submit(e) {
       const { data } = await axios.post("/homeAdmin/register",{...userdata},config);
 
       //localStorage.setItem("authToken", data.token);
-
+      if(data) {
+        alert("Add Success","success");
+      }else{
+        alert(data.message, "error");
+      }
       console.log(data);
     } catch (error) {
       console.log("khong nhap duoc");

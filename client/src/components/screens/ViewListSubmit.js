@@ -14,12 +14,12 @@ export default function ViewSubmit(props) {
     },
   };
   const currentId = props.match.params.facultyID
+  console.log(currentId);
   useEffect(() => {
     const fetchPrivateDate = async () => {
       try {
         const data  = await axios.get("/homeStudent/lstFaculty/report/list/"+currentId, config);
         setReport(data.data);
-        //console.log(privateData);
         
       } catch (error) {
         // localStorage.removeItem("authToken");
@@ -30,17 +30,26 @@ export default function ViewSubmit(props) {
     fetchPrivateDate();
   }, []);
 
+  const deleteHandle = async (id) => {
+    try{
+      const deleteRecord = await axios.delete(`/homeStudent/lstFaculty/report/delete/${currentId}/${id}`, config);
+      window.location.reload();
+    }catch (error) {
+      setError("Error Delete");
+    }
 
+  }
 
   const display = report.map((item,index) => 
     <tr key={index}>
-      <td>{item.facultyID.facultyName}</td>
-      <td onClick={e => window.open(item.reportUrl, "_blank")}><i className="fas fa-file-pdf"></i></td>
-      <td>{item.point}</td>
-      <td>{item.feedback}</td>
-      <td>{item.CreateAt}</td>
-      <td><Link to={`//${item._id}`} color="warning" className="btn-add btn-warning mr-1">ReSubmit</Link></td>
-      <td><Link className="btn-delete">Delete</Link></td>
+      <td data-label="Title">{item.title}</td>
+      <td data-label="Article" onClick={e => window.open(item.reportUrl, "_blank")}><span style={{cursor:"pointer", color:"blue"}}>{item.title}.pdf</span></td>
+      <td data-label="Status">{item.reportStatus}</td>
+      <td data-label="Point">{item.point}</td>
+      <td data-label="Feedback">{item.feedback}</td>
+      <td data-label="Time Submit">{item.CreateAt}</td>
+      <td><Link to={`/reSubmit/${item._id}`} color="warning" className="btn-add btn-warning mr-1">ReSubmit</Link></td>
+      <td><Link className="btn-delete" onClick={(e) => deleteHandle(item._id)} >Delete</Link></td>
       
     </tr>  
   )
@@ -53,8 +62,9 @@ export default function ViewSubmit(props) {
       <table className="content-table">
         <thead>
           <tr>
-            <th>Faculty Title</th>
-            <th>Report</th>
+            <th>Title</th>
+            <th>Article</th>
+            <th>Status</th>
             <th>Score</th>
             <th>Feedback</th>
             <th>Time Submit</th>

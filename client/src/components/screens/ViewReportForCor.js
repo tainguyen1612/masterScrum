@@ -9,6 +9,7 @@ import { Block } from "@material-ui/icons";
 export default function ViewRerportForCor({match}) {
   const [error, setError] = useState("");
   const [report, setReport] = useState([]);
+  const [title, setTitle] = useState("");
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -25,6 +26,7 @@ export default function ViewRerportForCor({match}) {
         if(data) {
           console.log(data);
           setReport(data.data.reportUrl);
+          setTitle(data.data.title);
         }
         
       } catch (error) {
@@ -75,7 +77,7 @@ export default function ViewRerportForCor({match}) {
           <h3 className="register-screen__title">Feeback Report</h3>
           <div className="form-group">
             <label htmlFor="email">Report: </label>
-            <a onClick={e => window.open(report, "_blank")}>File Report</a>
+            <a onClick={e => window.open(report, "_blank")}>{title}</a>
           </div>
           
           <div className="form-group">

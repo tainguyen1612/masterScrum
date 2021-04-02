@@ -4,10 +4,11 @@ const router = express.Router()
 const UserController = require('../controller/UserController');
 const {getChartReport,getCorFaculty, getStudentForEachFaculty, listReportForCoor, viewReportForCoor, feedBackReportForCoor, publicReportForCoor, getPublicReportForCoor} = require('../controller/CoordinatorController');
 const {addFacultyForAdmin, displayFaculty, updateFaculty, deleteFaculty, getSingleFaculty, displayUser, getCordinator} = require('../controller/AdminController');
-const {getProfile, editProfile, joinFaculty, submitAndResubmitReport, viewReportForStudent, listReportForStudent, deleteReport} = require('../controller/StudentController');
+const {ResubmitReport,getProfile, editProfile, joinFaculty, submitAndResubmitReport, viewReportForStudent, listReportForStudent, deleteReport,singleReport} = require('../controller/StudentController');
 
 const {checkAdmin, checkGuest , checkCoor, checkLogin, checkManager, checkStudent, checkCoorOrManager, getLogin} = require('../middleware/checkAuth');
-const {validate} = require('../validators/validator')
+const {validate} = require('../validators/validator');
+
 
 // User
 router.post('/homeAdmin/register',checkLogin, checkAdmin, validate.validateRegisterUser() ,UserController.register);
@@ -44,6 +45,9 @@ router.post('/homeStudent/lstFaculty/report/upload/:facultyID', checkLogin, chec
 router.get('/homeStudent/lstFaculty/report/view/:facultyID/:reportID', checkLogin, checkStudent, viewReportForStudent);
 router.get('/homeStudent/lstFaculty/report/list/:facultyID', checkLogin, checkStudent, listReportForStudent);
 router.delete('/homeStudent/lstFaculty/report/delete/:facultyID/:reportID', checkLogin, checkStudent, deleteReport);
+router.get("/homeStudent/:reportID", checkLogin, checkStudent, singleReport)
+
+router.patch('/homeStudent/lstFaculty/report/upload/:reportID', checkLogin, checkStudent, ResubmitReport);
 
 
 router.get('/homeStudent/Profile', checkLogin, checkStudent, getProfile);

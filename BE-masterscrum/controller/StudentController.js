@@ -71,6 +71,7 @@ const submitAndResubmitReport = async (req, res) => {
             const report = new Report({
                 facultyID: faculty._id,
                 student: studentId,
+                title: req.body.title,
                 reportUrl: req.body.reportUrl,
                 reportStatus: stautsSubmit,
             })
@@ -87,6 +88,29 @@ const submitAndResubmitReport = async (req, res) => {
         }
     } catch (error) {
         res.status(400).json({ success: false, message: 'can not upload report' })
+    }
+}
+
+const ResubmitReport = async (req, res) => {
+    try {
+        var upReport = await Report.findById(req.params.reportID).exec();
+        upReport.set(req.body);
+        upReport.set({reportStatus: REUSUBMIT})
+        await upReport.save();
+        res.status(200).json({
+            success: true, message: "update success"
+        })
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
+
+const singleReport = async (req,res) => {
+    try{
+        const singleReport = await Report.findById(req.params.reportID) ;
+        res.send(singleReport);
+    } catch(err){
+        res.status(500).send(error);
     }
 }
 
@@ -125,5 +149,5 @@ const deleteReport = async (req, res) => {
 }
 
 module.exports = {
-    getProfile, editProfile, joinFaculty, submitAndResubmitReport, viewReportForStudent, listReportForStudent, deleteReport
+    getProfile, editProfile, joinFaculty, submitAndResubmitReport, viewReportForStudent, listReportForStudent, deleteReport, singleReport, ResubmitReport
 }

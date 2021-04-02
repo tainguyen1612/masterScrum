@@ -110,7 +110,12 @@ function Header(props) {
         {role=="student" && studentRouter()}
         {role==="manager" && managerRouter()}
         {role==="guest" && guestRouter()}
-        <a onClick={() => logoutUser()} class="Logout"><span>Logout</span></a>
+        <a style={{
+                width: "150px",
+                borderRadius: "3px",
+                letterSpacing: "1.5px",
+                marginTop: "1rem"
+              }} onClick={() => logoutUser()} class="Logout"><span>Logout</span></a>
       </div>
     </div>
 

@@ -36,10 +36,10 @@ const StudentScreen = () => {
 //   console.log(report);
   const display = report.map((item, index) =>
     <tr key={index}>
-      <td>{item.facultyID.facultyName}</td>
-      <td>{item.student.name}</td>
-      <td>{item.point}</td>
-      <td>{item.feedback}</td>
+      <td data-label="Faculty Name">{item.facultyID.facultyName}</td>
+      <td data-label="Student">{item.student.name}</td>
+      <td data-label="Point">{item.point}</td>
+      <td data-label="Feedback">{item.feedback}</td>
       <td><a onClick={e => window.open(item.reportUrl, "_blank")}>Click to see report</a></td>
     </tr>
   )

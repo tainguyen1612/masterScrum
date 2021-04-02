@@ -8,19 +8,29 @@ import moment from 'moment';
 const SubmitReport = ({match}) => {
   const [pdf, setPdf] = useState(null);
   const [time, setTime] = useState();
+  const [title, setTitle] = useState({
+    title: "",
+  });
+  const [showResults, setShowResults] = useState(false);
+  const onClick = () => setShowResults(true);
 
   const handleChange = e => {
     if (e.target.files[0]) {
       setPdf(e.target.files[0]);
     }
   };
+  function handle(e){
+    const newData = {...title}
+    newData[e.target.id]=e.target.value
+    setTitle(newData)
+  }
   const config = {
     headers: {
       "Content-Type": "application/json",
       token : localStorage.getItem("authToken")
     },
   };
-  const handleUpload = (pdf) => {
+  const handleUpload = (pdf, title) => {
     const uploadTask = storage.ref(`pdfs/${pdf.name}`).put(pdf);
     uploadTask.on(
       "state_changed",
@@ -41,7 +51,7 @@ const SubmitReport = ({match}) => {
           .then(async (url) => {
             const {data} = await axios.post(
               `/homeStudent/lstFaculty/report/upload/${match.params.facultyID}`,
-              { reportUrl:  url},
+              { title: title, reportUrl:  url},
               config
             );
             if(data.success === true) {
@@ -59,56 +69,14 @@ const SubmitReport = ({match}) => {
     console.log(typeof checkTime);
     if(checkTime < 0) {
       checkTime = 0
+      
     }
     setTime(checkTime)
   },[])
-//   const [reportdata, setReportData] = useState({
-//     File: "",
-//     coordinator: "",
-//     startDay: "",
-//     endDay: "",
-//   })
-//   const [coordinator, setCoordinator] = useState([])
-//   const [error, setError] = useState("");
-
-// const display = coordinator.map(item => 
-//     <option key={item._id} value={item._id}> {item.name} </option>
-// )
-
-// async function submit(e) {
-//     e.preventDefault();
-
-//     const config = {
-//       headers: {
-//         "Content-Type": "application/json",
-//         token: localStorage.getItem("authToken"),
-//       },
-//     };
-
-//     try {
-//         // const { data } = await axios.post("/homeAdmin/addFaculty",config,{...facultydata});
-//       //localStorage.setItem("authToken", data.token);
-    
-//       // console.log(data);
-//     } catch (error) {
-//       console.log("khong nhap duoc");
-//       setError("");
-//       setTimeout(() => {
-//         setError("");
-//       }, 5000);
-//     }
-    
-// };
-
-  // function handle(e){
-  //   const newData = {...facultydata}
-  //   newData[e.target.id]=e.target.value
-  //   setFacultydata(newData)
-  // }
 
 
 
-  return (
+  return time > 0 ? (
     // <div>
     //   <input type="file" onChange={handleChange} />
     //   <p>{time}</p>
@@ -122,7 +90,17 @@ const SubmitReport = ({match}) => {
             <label htmlFor="email">Time to upload</label>
             <p style={{color: "red"}}>You have {time} day to submit report</p>
           </div>
-          
+          <div className="form-group">
+            <label htmlFor="name">Title:</label>
+            <input
+              type="text"
+              name="title"
+              required
+              id="title"
+              value={title.title}
+              onChange={(e)=>handle(e)}
+            />
+          </div>     
           <div className="form-group">
             <label htmlFor="name">File:</label>
             <input
@@ -133,12 +111,18 @@ const SubmitReport = ({match}) => {
               onChange={handleChange}
             />
           </div>
-          
-          <button onClick={e => handleUpload(pdf)} className="btn btn-primary">Upload</button>
+          {/* <input type="radio" value="law" name="law" onClick={() => showButton()}/> */}
+          {/* <button onClick={e => handleUpload(pdf)} className="btn btn-primary" style={{display: "none"}}>Submit</button> */}
+          <input type="radio" value="law" name="law" onClick={onClick} /> Accept all law of university
+          { showResults ? <button onClick={e => handleUpload(pdf, title.title)} className="btn btn-primary" > Submit</button> : null }
         </div>
       </div>
     </div>
-  );
+  ) : (
+  <div className="data">
+    <h1 className="title">You can't submit because the time for submitting the article has ended</h1>
+  </div>
+  )
 };
 
 

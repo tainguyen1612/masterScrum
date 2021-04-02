@@ -11,12 +11,16 @@ const reportSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'User',
         },
+        title: {
+            type: String,
+            require: true
+        },
         reportUrl: {
             type: String,
             require: true
         },
         point: {
-            type: String
+            type: Number
         },
         feedback:{
             type: String

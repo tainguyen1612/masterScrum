@@ -46,10 +46,10 @@ const StudentScreen = () => {
 
   const display = faculty.map((item, index) =>
     <tr key={index}>
-      <td>{item.facultyName}</td>
-      <td>{item.coordinator.name}</td>
-      <td>{item.startDay}</td>
-      <td>{item.endDay}</td>
+      <td data-label="Faculty Name" >{item.facultyName}</td>
+      <td data-label="Coordinator">{item.coordinator.name}</td>
+      <td data-label="Start Day">{item.startDay}</td>
+      <td data-label="End Day">{item.endDay}</td>
       {!item.isJoin && <td><Link to={"/"} color="warning" onClick={() => joinFaculty(item._id)} className="btn-delete btn-warning mr-1">Join</Link></td>}
       {item.isJoin ? <td><Link to={"/view_report/"+item._id} color="warning" className="btn-add btn-warning mr-1">View</Link></td> : null}
       {item.isJoin ? <td><Link to={`/submit/${item._id}/${item.endDay}`} color="warning" className="btn-add btn-warning mr-1">Submit</Link></td> : null}

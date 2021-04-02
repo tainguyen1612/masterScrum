@@ -1,7 +1,7 @@
 import { useState , useEffect } from "react";
 import axios from "axios";
 import "./RegisterScreen.css";
-
+import alert from "../constant/alert"
 
 const AddFaculty = () => {
   const [facultydata, setFacultydata] = useState({
@@ -21,8 +21,6 @@ const AddFaculty = () => {
         console.log(coor.data.data);
         setCoordinator(coor.data.data);
         
-        // console.log(coor.data.result);
-        //console.log(privateData);
         
       } catch (error) {
         //localStorage.removeItem("authToken");
@@ -51,6 +49,11 @@ async function submit(e) {
     try {
         const { data } = await axios.post("/homeAdmin/addFaculty",{...facultydata},config);
       //localStorage.setItem("authToken", data.token);
+        if(data){
+          alert("Create Faculty Success", "success");
+        } else{
+          alert(data.message, "error");
+        }
     
       console.log(data);
     } catch (error) {

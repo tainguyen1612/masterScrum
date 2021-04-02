@@ -20,9 +20,11 @@ import { ExitToApp } from "@material-ui/icons";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 
-import { Bar } from "react-chartjs-2";
+import { Bar ,Pie} from "react-chartjs-2";
 import { useState , useEffect } from "react";
 import axios from "axios";
+
+import "../screens/chart.css"
 
 const drawerWidth = 240;
 
@@ -71,6 +73,9 @@ function Management(props) {
   const [student, setStudent] = useState([]);
   const [report, setReport] = useState([]);
   const [name, setName] = useState([]);
+  const [publicReport, setPublic] = useState([]);
+  const [avg, setAvg] = useState([]);
+  const [oneSubmit, setSubmit] = useState([]);
   useEffect(() => {
     const fetchPrivateDate = async () => {
       try {
@@ -85,36 +90,34 @@ function Management(props) {
           const studentCount = data.map(x => x.studentCount);
           const reportCount = data.map(y => y.reportCount);
           const facultyName = data.map(z => z.facultyName);
+          const reportSelect = data.map(m=>m.publicReport);
+          const avgPoint = data.map(p=>p.pointAvarge);
+          const oneSubmits = data.map(o=>o.submitCount)
           setStudent(studentCount);
           setReport(reportCount);
           setName(facultyName);
+          setPublic(reportSelect);
+          setAvg(avgPoint);
+          setSubmit(oneSubmits);
         }
-
-        // setReport(data);
-        //console.log(privateData);
-
       } catch (error) {
-        // localStorage.removeItem("authToken");
         setError("You are not authorized please login");
       }
     };
-
     fetchPrivateDate();
   }, []);
 
-
   return (
     <div className="data">
-      <h1 className="title">Chart</h1>
       <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
-       
+
       </AppBar>
-      
+      <h1 className="title">Dashboard</h1>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography paragraph>Bar chart</Typography>
+        <Typography paragraph>Number of students per faculty</Typography>
 
         <Bar
           data={{
@@ -140,7 +143,43 @@ function Management(props) {
                   "rgba(255, 159, 64, 1)",
                 ],
                 borderWidth: 1,
+              }
+            ],
+          }}
+          height={150}
+          width={150}
+          options={{
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [
+                {
+                  display: true,
+                  ticks: {
+                      beginAtZero: true,
+                      steps: 10,
+                      stepValue: 5,
+                      max: 10
+                  }
+                },
+              ],
+            },
+            legend: {
+              labels: {
+                fontSize: 25,
               },
+            },
+          }}
+        />
+      </main>
+
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Typography paragraph>Number of contributions per faculty</Typography>
+
+        <Bar
+          data={{
+            labels: name,
+            datasets: [
               {
                 label: "Report",
                 data: report,
@@ -156,9 +195,13 @@ function Management(props) {
             scales: {
               yAxes: [
                 {
+                  display: true,
                   ticks: {
-                    beginAtZero: true,
-                  },
+                      beginAtZero: true,
+                      steps: 10,
+                      stepValue: 5,
+                      max: 10
+                  }
                 },
               ],
             },
@@ -170,6 +213,154 @@ function Management(props) {
           }}
         />
       </main>
+
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Typography paragraph>Number of articles is selected by faculty</Typography>
+        <Pie
+        data={{
+          labels: name,
+          datasets: [
+            {
+              label: 'Public Article',
+              data: publicReport,
+              backgroundColor: [  
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+              ],
+              borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+              ],
+              borderWidth: 1,
+            },
+          ],
+        }}
+        height={400}
+        width={600}
+        options={{
+          maintainAspectRatio: false,
+          
+          legend: {
+            labels: {
+              fontSize: 25,
+            },
+          },
+        }}
+      />
+      </main>
+
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Typography paragraph>Average score of the faculties</Typography>
+
+        <Bar
+          data={{
+            labels: name,
+            datasets: [
+              {
+                label: "Avegare",
+                data: avg,
+                backgroundColor: "blue",
+                borderColor: "blue",
+              },
+            ],
+          }}
+          height={150}
+          width={150}
+          options={{
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [
+                {
+                  display: true,
+                  ticks: {
+                      beginAtZero: true,
+                      steps: 10,
+                      stepValue: 5,
+                      max: 10
+                  }
+                },
+              ],
+            },
+            legend: {
+              labels: {
+                fontSize: 25,
+              },
+            },
+          }}
+        />
+      </main>
+
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Typography paragraph>Number of articles only submit one time</Typography>
+
+        <Pie
+        data={{
+          labels: name,
+          datasets: [
+            {
+              label: 'Submit',
+              data: oneSubmit,
+              backgroundColor: [  
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+              ],
+              borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+              ],
+              borderWidth: 1,
+            },
+          ],
+        }}
+        height={400}
+        width={600}
+        options={{
+          maintainAspectRatio: false,
+          option: {
+            tooltips: {
+              enabled: true
+            },
+            plugins: {
+              datalabels: {
+                formatter: (value, ctx) => {
+          
+                  let sum = ctx.dataset._meta[0].total;
+                  let percentage = (value * 100 / sum).toFixed(2) + "%";
+                  return percentage;
+                },
+                color: '#fff',
+              }
+            }
+          },
+          legend: {
+            labels: {
+              fontSize: 25,
+            },
+          },
+        }}
+      />
+      </main>
+
+
     </div>
     </div>
   );

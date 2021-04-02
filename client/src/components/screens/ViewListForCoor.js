@@ -43,12 +43,12 @@ export default function ViewRerportForCor({match}) {
         setError("Public Fail");
       }
   }
-  const display = report.map((item,index) => 
-    <tr key={index}>
-      <td>{item?.reportID?.student?.name}</td>
-      <td><i class="fas fa-file-pdf"> </i></td>
-      <td>{item?.reportID.CreateAt}</td>
-      <td>{item?.reportID.reportStatus}</td>
+  const display = report.map((item,index) =>
+  <tr key={index}>
+      <td data-label="Student Name">{item?.reportID?.student?.name}</td>
+      <td data-label="Title">{item.reportID.title}</td>
+      <td data-label="Day Submit">{item?.reportID.CreateAt}</td>
+      <td data-label="Status">{item?.reportID.reportStatus}</td>
       <td><Link to={`/faculty/report/${match.params.facultyId}/${item.reportID._id}`} color="warning" className="btn-add btn-warning mr-1">View</Link></td>
       <td><Link onClick={e => post(item.reportID._id)} color="warning" className="btn-delete btn-warning mr-1">Upload</Link></td>
     </tr>  
@@ -63,7 +63,7 @@ export default function ViewRerportForCor({match}) {
         <thead>
           <tr>
             <th>Name Student</th>
-            <th>Report</th>
+            <th>Title Article</th>
             <th>Day Submit</th>
             <th>Status</th>
             <th colSpan="2">Action</th>

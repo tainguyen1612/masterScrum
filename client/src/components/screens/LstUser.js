@@ -45,11 +45,11 @@ const ListUser = () => {
 
   const display = user.map(item => 
     <tr key={item.userID}>
-      <td>{item.name}</td>
-      <td>{item.email}</td>
-      <td>{item.phone}</td>
-      <td className="pass" >{item.password}</td>
-      <td>{item.role}</td>
+      <td data-label="Name">{item.name}</td>
+      <td data-label="Email">{item.email}</td>
+      <td data-label="Phone">{item.phone}</td>
+      <td data-label="Password" className="pass" >{item.password}</td>
+      <td data-label="Role">{item.role}</td>
       <td><Link to={`/edit_user/${item._id}`} className="btn-add">Update</Link></td>
       <td><button className="btn-delete" onClick={(e) => deleteHandle(item._id)}>Delete</button></td>
     </tr>  

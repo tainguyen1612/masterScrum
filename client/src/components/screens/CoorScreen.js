@@ -37,9 +37,9 @@ const CoorScreen = ({match}) => {
 
   const display = faculty.map((item,index) => 
     <tr key={index}>
-      <td>{item.facultyName}</td>
-      <td>{item.startDay}</td>
-      <td>{item.endDay}</td>
+      <td data-label="Faculty Name">{item.facultyName}</td>
+      <td data-label="Start Date">{item.startDay}</td>
+      <td data-label="End Date">{item.endDay}</td>
       <td><Link to={`/user_for_faculty/${item._id}`} color="warning" className="btn-add btn-warning mr-1">Student</Link></td>
       <td><Link to={`/submit_for_faculty/${item._id}`} color="warning" className="btn-add btn-warning mr-1">Article</Link></td>
       

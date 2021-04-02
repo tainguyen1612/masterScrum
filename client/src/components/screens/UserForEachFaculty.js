@@ -41,9 +41,9 @@ const UserForEachFaculty = (props) => {
 
   const display = student.map(item => 
     <tr key={item.studentID}>
-      <td>{item.name}</td>
-      <td>{item.email}</td>
-      <td>{item.phone}</td>      
+      <td data-label="Name">{item.name}</td>
+      <td data-label="Email">{item.email}</td>
+      <td data-label="Phone">{item.phone}</td>      
     </tr>  
   )
 

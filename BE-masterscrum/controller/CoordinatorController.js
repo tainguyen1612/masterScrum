@@ -74,9 +74,9 @@ const feedBackReportForCoor = async (req, res) => {
 }
 const publicReportForCoor = async (req, res) => {
     try {
-        console.log(req.body);
-        console.log(req.params.reportID);
-        console.log(req.params.facultyID);
+        // console.log(req.body);
+        // console.log(req.params.reportID);
+        // console.log(req.params.facultyID);
         await Report.findOneAndUpdate({ $and: [{ '_id': req.params.reportID }, { 'facultyID': req.params.facultyID }] }, req.body);
         res.status(200).json({ success: true, message: 'Public Successfuly' })
     } catch (error) {
@@ -97,17 +97,36 @@ const getPublicReportForCoor = async (req, res) => {
 
 const getChartReport = async (req, res) => {
     try {
-        let studentLength;
-        let reportLentgth;
+        let studentCount;
+        let reportCount;
+        let publicReport;
+        let submitCount;
+        let pointAvarge;
+        let reportLength;
+        let temp;
         const facultys = await Faculty.find().populate('report.reportID');
         const chart = facultys.map((e, index) => {
-            studentLength = e.student && e.student.length;
-            reportLentgth = e.report.filter(x => x.reportID && x.reportID.reportStatus === 'submit').length;
+            studentCount = e.student && e.student.length;
+            reportCount = e.report.length;
+            publicReport = e.report.filter(y => y.reportID && y.reportID.public === true).length;
+            submitCount = e.report.filter(x => x.reportID && x.reportID.reportStatus === 'submit').length;
+            reportLength = e.report.length;
+            e.report.map((z, index) => {
+                console.log();
+                if(index == reportLength) {
+                    pointAvarge =  temp / reportLength
+                } else {
+                    temp = temp + z.reportID.point;
+                }
+            })
             return {
                 facultyId: e._id,
-                studentCount: studentLength,
-                reportCount: reportLentgth,
                 facultyName: e.facultyName,
+                studentCount,
+                reportCount,
+                publicReport,
+                pointAvarge,
+                submitCount,
             }
         })
         res.json(chart)

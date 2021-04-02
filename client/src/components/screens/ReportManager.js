@@ -4,9 +4,10 @@ import "./PrivateScreen.css";
 import React from 'react';
 import { Link } from "react-router-dom";
 import ViewSubmit from "./ViewListSubmit";
-
+import { saveAs } from 'file-saver';
+// import { saveAs } from 'file-saver';
+import JSZip from 'jszip';
 const StudentScreen = () => {
-
   const [error, setError] = useState("");
   const [report, setReport] = useState([]);
   const [success, setSuccess] = useState(true);
@@ -32,16 +33,29 @@ const StudentScreen = () => {
 
     fetchPrivateDate();
   }, []);
+  
+  const downloadzip = (title,url) => {
 
-//   console.log(report);
+    var zip = new JSZip();
+
+    zip.file(`${title}.pdf`, url);
+
+    zip.generateAsync({type:"blob"}).then(function(content) {
+        // see FileSaver.js
+        saveAs(content, "article.zip");
+    });
+  }
+  //   console.log(report);
   const display = report.map((item, index) =>
-    <tr key={index}>
-      <td>{item.facultyID.facultyName}</td>
-      <td>{item.student.name}</td>
-      <td>{item.point}</td>
-      <td>{item.feedback}</td>
-      <td><a className="btn-add" onClick={e => window.open(item.reportUrl, "_blank")}>View Article</a></td>
-    </tr>
+  <tr key={index}>
+  <td data-label="Faculty Name">{item.facultyID.facultyName}</td>
+  <td data-label="Student">{item.student.name}</td>
+  <td data-label="Title">{item.title}</td>
+  <td data-label="Point">{item.point}</td>
+  <td data-label="Feedback">{item.feedback}</td>
+  <td><a className="btn-add" onClick={e => window.open(item.reportUrl, "_blank")}>View Article</a></td>
+  <td><a className="btn-add" onClick={e => downloadzip(item.title, item.reportUrl)}>Download Article</a></td>
+</tr>
   )
 
   return error ? (
@@ -54,15 +68,16 @@ const StudentScreen = () => {
             <tr>
               <th>Faculty </th>
               <th>Student</th>
+              <th>Title</th>
               <th>Point</th>
               <th>Feedback</th>
-              <th>View Report</th>
+              <th colSpan="2" style={{textAlign:"center"}}>Action</th>
             </tr>
           </thead>
           <tbody>
             {display}
           </tbody>
-      </table>
+        </table>
       </div>
     );
 };

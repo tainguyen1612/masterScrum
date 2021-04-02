@@ -20,6 +20,7 @@ import ViewReportForEachFaculty from "../screens/ViewListSubmit"
 import ManagerScreen from "../screens/Manager"
 import Submit from "../screens/SubmitReport"
 import StuProfile from "../screens/ProfileStudent"
+import Resubmit from "../screens/Resubmit"
 
 import ListArticle from "../screens/ReportManager"
 
@@ -81,7 +82,7 @@ export default function Main() {
                  
                  <Route path="/view_report/:facultyID" exact component={(role==="student") ? ViewReportForEachFaculty : NotFound} />
                  <Route path="/submit/:facultyID/:endtime" exact component={(role==="student") ? Submit : NotFound} />
-                 {/* <Route path="/resubmit/:reportID" exact component={(role==="student") ? Resubmit : NotFound} /> */}
+                 <Route path="/reSubmit/:reportID" exact component={(role==="student") ? Resubmit : NotFound} />
                  <Route path="/stu_profile" exact component={(role==="student") ? StuProfile : NotFound} />
 
                  {/* manager */}

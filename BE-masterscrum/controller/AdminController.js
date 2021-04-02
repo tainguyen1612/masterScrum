@@ -1,13 +1,21 @@
 const Faculty = require('../models/Faculty');
 const User = require('../models/User')
 const jwt = require('jsonwebtoken');
-const { route } = require('../routes');
+const Report = require("../models/Report")
+// const { route } = require('../routes');
+// const { findOne } = require('../models/Faculty');
 
 
 const addFacultyForAdmin = async (req, res) => {
     try {
         const { facultyID, facultyName, coordinator, startDay, endDay } = req.body;
 
+        const checkName = await Faculty.findOne({facultyName});
+        if(checkName){
+            res.status(500).json({
+                message : "faculty exits"
+            })
+        }
         let newFaculty = new Faculty({
             facultyID,
             facultyName,
@@ -15,7 +23,6 @@ const addFacultyForAdmin = async (req, res) => {
             startDay,
             endDay
         });
-        console.log(111,newFaculty);
         newFaculty.save();
         const user = await User.findById({ _id: newFaculty.coordinator });
         user.faculty = newFaculty._id;
@@ -26,9 +33,9 @@ const addFacultyForAdmin = async (req, res) => {
             user: user
         })
     } catch (err) {
+        console.log(err);
         res.json({
             message: 'error',
-            newFaculty: newFaculty
         })
     }
 }
@@ -89,7 +96,8 @@ const updateFaculty = async (req, res) => {
 const deleteFaculty = async (req, res) => {
     try {
         var result = await Faculty.deleteOne({ _id: req.params.facultyID }).exec();
-        res.send(result);
+        const delReport = await Report.deleteOne({facultuID: req.params.facultyID }).exec();
+        res.send(result, delReport);
     } catch (error) {
         res.status(500).send(error);
     }
