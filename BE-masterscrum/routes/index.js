@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router()
 
 const UserController = require('../controller/UserController');
-const {getChartReport,getCorFaculty, getStudentForEachFaculty, listReportForCoor, viewReportForCoor, feedBackReportForCoor, publicReportForCoor, getPublicReportForCoor} = require('../controller/CoordinatorController');
+const {getChartReport,getCorFaculty, getStudentForEachFaculty, listReportForCoor, viewReportForCoor, feedBackReportForCoor, publicReportForCoor, getPublicReportForCoor,getSingleReportPublic} = require('../controller/CoordinatorController');
 const {addFacultyForAdmin, displayFaculty, updateFaculty, deleteFaculty, getSingleFaculty, displayUser, getCordinator} = require('../controller/AdminController');
 const {ResubmitReport,getProfile, editProfile, joinFaculty, submitAndResubmitReport, viewReportForStudent, listReportForStudent, deleteReport,singleReport} = require('../controller/StudentController');
 
 const {checkAdmin, checkGuest , checkCoor, checkLogin, checkManager, checkStudent, checkCoorOrManager, getLogin} = require('../middleware/checkAuth');
 const {validate} = require('../validators/validator');
+const { check } = require('express-validator');
 
 
 // User
@@ -50,7 +51,7 @@ router.get("/homeStudent/:reportID", checkLogin, checkStudent, singleReport)
 router.patch('/homeStudent/lstFaculty/report/upload/:reportID', checkLogin, checkStudent, ResubmitReport);
 
 
-router.get('/homeStudent/Profile', checkLogin, checkStudent, getProfile);
+router.get('/profile', checkLogin, checkStudent, getProfile);
 router.get('/homeCoor/Profile', checkLogin, checkCoor, getProfile);
 router.patch('/homeStudent/Profile', checkLogin, checkStudent, editProfile)
 
@@ -58,6 +59,7 @@ router.patch('/homeStudent/Profile', checkLogin, checkStudent, editProfile)
 
 router.get('/homeManager/lstFaculty/report/public', checkLogin, checkManager, getPublicReportForCoor);
 router.get('/homeManager/lstFaculty/chart', checkLogin, checkManager, getChartReport);
+router.get("/homeManager/public/:reportID", checkLogin, checkManager, getSingleReportPublic);
 //guest
 router.get('/homeGuest/lstFaculty/report/public', checkLogin, checkGuest, getPublicReportForCoor);
 

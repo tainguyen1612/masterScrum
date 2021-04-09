@@ -7,10 +7,13 @@ import ViewSubmit from "./ViewListSubmit";
 import { saveAs } from 'file-saver';
 // import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
+
+
 const StudentScreen = () => {
   const [error, setError] = useState("");
   const [report, setReport] = useState([]);
   const [success, setSuccess] = useState(true);
+  const [url,setUrl] = useState("");
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -35,17 +38,19 @@ const StudentScreen = () => {
   }, []);
   
   const downloadzip = async (title,url) => {
-    console.log(url);
-
-    var zip = new JSZip();
-
-    zip.file(`${title}.pdf`, url);
-
-    zip.generateAsync({type:"blob"}).then(function(content) {
-        // see FileSaver.js
-        saveAs(content, "article.zip");
+    const response = await fetch(url, {
+      method: 'GET',
+      credentials: 'include',
     });
-  }
+    const doc = await response.blob();
+    var zip = new JSZip();
+    zip.file(`${title}.pdf`, doc , {type:"blob"});
+    zip.generateAsync({type:"blob"}).then(function(content) {
+      // see FileSaver.js
+      saveAs(content, "example.zip");
+  });
+}
+  
   //   console.log(report);
   const display = report.map((item, index) =>
   <tr key={index}>

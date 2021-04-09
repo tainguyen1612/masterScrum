@@ -75,9 +75,9 @@ const LoginScreen = ({ history }) => {
             tabIndex={2}
           />
         </div>
-        <button type="submit" className="btn btn-primary" variant="contained" color="secondary"git disableFocusListener disableTouchListener type="submit" className="btn btn-primary">
+        {/* <button type="submit" className="btn btn-primary" variant="contained" color="secondary"git disableFocusListener disableTouchListener type="submit" className="btn btn-primary">
           Login
-        </button>
+        </button> */}
 
 
         {/* Note */}

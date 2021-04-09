@@ -96,7 +96,7 @@ const updateFaculty = async (req, res) => {
 const deleteFaculty = async (req, res) => {
     try {
         var result = await Faculty.deleteOne({ _id: req.params.facultyID }).exec();
-        const delReport = await Report.deleteOne({facultuID: req.params.facultyID }).exec();
+        const delReport = await Report.deleteOne({facultyID: req.params.facultyID }).exec();
         res.send(result, delReport);
     } catch (error) {
         res.status(500).send(error);

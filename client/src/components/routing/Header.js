@@ -172,10 +172,8 @@ function Header(props) {
         {role === "guest" && guestRouter()}
         <a
           style={{
-            width: "150px",
             borderRadius: "3px",
             letterSpacing: "1.5px",
-            marginTop: "1rem",
           }}
           onClick={() => logoutUser()}
           class="Logout"

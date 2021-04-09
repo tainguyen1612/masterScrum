@@ -95,6 +95,15 @@ const getPublicReportForCoor = async (req, res) => {
     }
 }
 
+const getSingleReportPublic = async (req,res)=> {
+    try{
+        const singlePublic = await Report.findOne({_id:req.params.reportID});
+        res.status(200).json(singlePublic); 
+    } catch (error) {
+        res.send(error);
+    }
+}
+
 const getChartReport = async (req, res) => {
     try {
         let studentCount;
@@ -137,5 +146,5 @@ const getChartReport = async (req, res) => {
 }
 
 module.exports = {
-    getChartReport,getCorFaculty, getStudentForEachFaculty, listReportForCoor, viewReportForCoor, feedBackReportForCoor, publicReportForCoor, getPublicReportForCoor
+    getSingleReportPublic,getChartReport,getCorFaculty, getStudentForEachFaculty, listReportForCoor, viewReportForCoor, feedBackReportForCoor, publicReportForCoor, getPublicReportForCoor
 }

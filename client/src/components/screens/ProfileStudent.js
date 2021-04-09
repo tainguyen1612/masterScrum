@@ -5,7 +5,7 @@ import { useState, useEffect, Component } from "react";
 import { Label } from "@material-ui/icons";
 
 
-export default function StuProfile(match) {
+export default function StuProfile() {
   const [error, setError] = useState("");
   const [profile, setProfile] = useState([]);
   const config = {
@@ -18,10 +18,10 @@ export default function StuProfile(match) {
   useEffect(() => {
     const fetchPrivateDate = async () => {
       try {
-        const data  = await axios.get("/homeStudent/Profile", config);
+        const data  = await axios.get("/profile", config);
         if(data) {
           console.log(data.data);
-          setProfile(data.data);
+          setProfile(data.data.data);
           
         }
         

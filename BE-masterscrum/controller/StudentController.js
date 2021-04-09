@@ -4,12 +4,14 @@ const jwt = require('jsonwebtoken');
 const { SUBMIT, REUSUBMIT } = require('../constants/status');
 const Report = require('../models/Report')
 const sendMail = require('../constants/sendMail');
+
+
 const getProfile = async (req, res) => {
-
     try {
-
         const data = await User.findById({_id:req.id}, {userID:1,name:1,email:1,phone:1,password:1,_id:0});
-        res.send(data);
+        res.status(200).json({
+            data: data
+        });
     } catch (error) {
         res.status(500).send(error);
     }
@@ -109,7 +111,7 @@ const singleReport = async (req,res) => {
     try{
         const singleReport = await Report.findById(req.params.reportID) ;
         res.send(singleReport);
-    } catch(err){
+    } catch(error){
         res.status(500).send(error);
     }
 }

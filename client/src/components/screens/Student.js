@@ -36,6 +36,7 @@ const StudentScreen = () => {
     try {
       const join = await axios.post(`/homeStudent/lstFaculty/${id}`, null, config);
       setSuccess(join.data.success);
+      window.location = "/";
       console.log(join.data);
       console.log(id);
 
