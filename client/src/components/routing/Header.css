@@ -197,7 +197,7 @@ nav .menu-bar{
       display: none;
   }
   .side-menu{
-
+      z-index: 9999;
       width: 100%;
       text-align: center;
       left:100%;

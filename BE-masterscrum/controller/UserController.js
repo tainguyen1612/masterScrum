@@ -77,6 +77,7 @@ const updateUser = async (req,res) => {
     try {
         var findUser = await User.findById(req.params.userID).exec();
         findUser.set(req.body);
+        findUser.set({password: await bcrypt.hash(req.body.password, 10)});
         var result = await findUser.save();
         res.send(result);
     } catch (error) {
