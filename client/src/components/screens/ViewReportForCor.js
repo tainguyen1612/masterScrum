@@ -93,7 +93,7 @@ export default function ViewRerportForCor({match}) {
           </div>
           <div className="form-group">
             <label htmlFor="name" className="abc">Point: </label>
-            <input type="text"
+            <input type="number"
               name="point"
               required
               id="point"

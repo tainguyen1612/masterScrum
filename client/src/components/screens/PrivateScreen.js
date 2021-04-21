@@ -4,7 +4,7 @@ import "./PrivateScreen.css";
 import React from 'react';
 import { Link } from "react-router-dom";
 import "../routing/Header.css";
-
+import moment from "moment"
 const PrivateScreen = () => {
   
   const [error, setError] = useState("");
@@ -47,8 +47,8 @@ const PrivateScreen = () => {
     <tr key={index}>
       <td data-label="Faculty">{item.facultyName}</td>
       <td data-label="Coordinator">{item.coordinator.name}</td>
-      <td data-label="Start Day">{item.startDay}</td>
-      <td data-label="End Day">{item.endDay}</td>
+      <td data-label="Start Day">{moment(item.startDay).format("DD-MM-YYYY")}</td>
+      <td data-label="End Day">{moment(item.endDay).format("DD-MM-YYYY")}</td>
       <td><Link to={`/edit_faculty/${item._id}`} color="warning" className="btn-add btn-warning mr-1">Edit</Link></td>
       <td><Link to={"/"} onClick={() => deleteHandle(item._id)} color="warning" className="btn-delete btn-warning mr-1">Delete</Link></td>
     </tr>  

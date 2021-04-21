@@ -21,7 +21,7 @@ export default function CoorProfile(match) {
         const data  = await axios.get('/homeCoor/Profile', config);
         if(data) {
           console.log(data.data);
-          setProfile(data.data);
+          setProfile(data.data.data);
           
         }
         

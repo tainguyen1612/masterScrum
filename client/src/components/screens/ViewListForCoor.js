@@ -4,6 +4,7 @@ import "./PrivateScreen.css";
 import { useState, useEffect, Component } from "react";
 import { Link } from "react-router-dom";
 import alert from '../constant/alert'
+import moment from 'moment';
 export default function ViewRerportForCor({match}) {
   const [error, setError] = useState("");
   const [report, setReport] = useState([]);
@@ -43,11 +44,12 @@ export default function ViewRerportForCor({match}) {
         setError("Public Fail");
       }
   }
+
   const display = report.map((item,index) =>
   <tr key={index}>
       <td data-label="Student Name">{item?.reportID?.student?.name}</td>
       <td data-label="Title">{item.reportID.title}</td>
-      <td data-label="Day Submit">{item?.reportID.CreateAt}</td>
+      <td data-label="Day Submit">{ moment(item?.reportID.CreateAt).format("DD-MM-YYYY")}</td>
       <td data-label="Status">{item?.reportID.reportStatus}</td>
       <td><Link to={`/faculty/report/${match.params.facultyId}/${item.reportID._id}`} color="warning" className="btn-add btn-warning mr-1">View</Link></td>
       <td><Link onClick={e => post(item.reportID._id)} color="warning" className="btn-delete btn-warning mr-1">Upload</Link></td>

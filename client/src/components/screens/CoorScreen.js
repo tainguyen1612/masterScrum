@@ -3,6 +3,7 @@ import axios from "axios";
 import "./PrivateScreen.css";
 import React from 'react';
 import { Link } from "react-router-dom";
+import moment from "moment"
 
 const CoorScreen = ({match}) => {
   
@@ -33,13 +34,11 @@ const CoorScreen = ({match}) => {
     fetchPrivateDate();
   }, []);
 
-
-
   const display = faculty.map((item,index) => 
     <tr key={index}>
       <td data-label="Faculty Name">{item.facultyName}</td>
-      <td data-label="Start Date">{item.startDay}</td>
-      <td data-label="End Date">{item.endDay}</td>
+      <td data-label="Start Date">{moment(item.startDay).format("DD-MM-YYYY")}</td>
+      <td data-label="End Date">{moment(item.endDay).format("DD-MM-YYYY")}</td>
       <td><Link to={`/user_for_faculty/${item._id}`} color="warning" className="btn-add btn-warning mr-1">Student</Link></td>
       <td><Link to={`/submit_for_faculty/${item._id}`} color="warning" className="btn-add btn-warning mr-1">Article</Link></td>
       

@@ -85,7 +85,7 @@ function Header(props) {
     return (
       <>
         <a className="avatar">
-          <img src="https://www.pngitem.com/pimgs/m/235-2350916_student-netid-login-transparent-background-student-icon-hd.png" />
+          <img src="https://cdn0.iconfinder.com/data/icons/school-medicine-people-1/110/Student-3-512.png" />
           <h2>Student</h2>
         </a>
         <a href="/">
